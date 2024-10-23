@@ -86,7 +86,7 @@ class TaskScheduler {
             return;
         }
 
-        Task taskToExecute = taskQueue.extractMin(); // Extract task with highest priority
+        Task taskToExecute = taskQueue.extractMin();
         String assignedUser = taskToExecute.developer;
 
         // Check if all dependencies are met
@@ -95,19 +95,19 @@ class TaskScheduler {
             int depTaskId = Integer.parseInt(dependency);
             if (!completedTasks.get(assignedUser).contains(depTaskId)) {
                 dependenciesMet = false;
-                printFormattedOutput("Task " + taskToExecute.id +
-                        " cannot be executed. Dependency " + depTaskId + " not completed.");
+                printFormattedOutput("Task " + taskToExecute.id + " cannot be executed. Dependency " + depTaskId + " not completed.");
                 taskQueue.insert(taskToExecute); // Re-insert task to check again later
                 return;
             }
         }
 
         // If all dependencies are met, execute the task
-        printFormattedOutput("Executing Task: " + taskToExecute.id + " for user " + assignedUser);
+        printFormattedOutput("Executing Task: " + taskToExecute.id + " for developer " + assignedUser);
         completedTasks.get(assignedUser).add(taskToExecute.id); // Mark task as completed
 
         // Remove task from user's pending task list
-        userTasks.get(assignedUser).remove(Integer.valueOf(taskToExecute.id));
+        userTasks.get(assignedUser).remove(taskToExecute.id);
+        System.out.println("All Tasks Executed...!!");
     }
 
     public void executeTaskById(int taskId) {

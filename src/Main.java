@@ -58,6 +58,7 @@ public class Main {
                     break;
 
                 case 4:
+                    System.out.print("Executing all Tasks...");
                     scheduler.executeTasks();
                     break;
 
