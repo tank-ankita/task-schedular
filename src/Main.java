@@ -15,12 +15,10 @@ public class Main {
             System.out.println("2. Create New Task");
             System.out.println("3. Execute Task");
             System.out.println("4. Execute All Tasks");
-            System.out.println("5. Show Developer Incomplete Tasks");
+            System.out.println("5. Show Developer Completed Tasks");
             System.out.println("6. Search Task by Id");
-            System.out.println("7. Remove Task");
-            System.out.println("8. Show Tasks by Epic");
-            System.out.println("10. Search Task by Name");
-            System.out.println("9. Exit");
+            System.out.println("7. Search Tasks by Name");
+            System.out.println("8. Exit");
             System.out.println("--------------------------------------");
 
             int choice = scanner.nextInt();
@@ -37,9 +35,6 @@ public class Main {
                     System.out.print("Enter Assigned Developer: ");
                     String assignedUser = scanner.nextLine();
 
-                    System.out.print("Enter EpicId: ");
-                    String epicId = scanner.nextLine();
-
                     System.out.print("Enter Task Description: ");
                     String description = scanner.nextLine();
 
@@ -53,23 +48,23 @@ public class Main {
                     List<String> dependencies = Arrays.asList(dependenciesInput.split(","));
                     if (dependencies.size() == 1 && dependencies.getFirst().isEmpty()) dependencies = new ArrayList<>();
 
-                    scheduler.addTask(Integer.parseInt(epicId), description, priority, dependencies, assignedUser);
+                    scheduler.addTask(description, priority, dependencies, assignedUser);
                     break;
 
                 case 3:
-                    scheduler.executeTask();
+                    System.out.print("Enter TaskId: ");
+                    String id = scanner.nextLine();
+                    scheduler.executeTaskById(Integer.parseInt(id));
                     break;
 
-                case 10:
-                    System.out.print("Enter Developer Name: ");
-                    String devName = scanner.nextLine();
-                    scheduler.showUserTasks(devName);
+                case 4:
+                    scheduler.executeTasks();
                     break;
 
                 case 5:
                     System.out.print("Enter Developer Name: ");
-                    String userCompleted = scanner.nextLine();
-                    scheduler.showCompletedTasks(userCompleted);
+                    String devCompleted = scanner.nextLine();
+                    scheduler.showCompletedTasks(devCompleted);
                     break;
 
                 case 6:
@@ -79,19 +74,13 @@ public class Main {
                     break;
 
                 case 7:
-                    System.out.print("Enter TaskId: ");
-                    String removeTaskId = scanner.nextLine();
-                    scheduler.removeTask(Integer.parseInt(removeTaskId));
+                    System.out.print("Enter Developer Name: ");
+                    String devName = scanner.nextLine();
+                    scheduler.showUserTasks(devName);
                     break;
 
                 case 8:
-                    System.out.print("Enter EpicId: ");
-                    String searchEpicId = scanner.nextLine();
-                    scheduler.searchEpic(Integer.parseInt(searchEpicId));
-                    break;
-
-                case 9:
-                    System.out.println("Exiting...");
+                    System.out.println("Thank you for using Task Scheduler...");
                     return;
 
                 default:

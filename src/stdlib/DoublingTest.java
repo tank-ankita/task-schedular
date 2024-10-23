@@ -1,5 +1,8 @@
 package stdlib;
-import java.util.function.*;
+
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class DoublingTest {
 	private static double time;

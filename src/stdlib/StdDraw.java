@@ -21,16 +21,20 @@ package stdlib;
  *
  *************************************************************************/
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
-import java.awt.image.*;
-import java.io.*;
-import java.net.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.DirectColorModel;
+import java.awt.image.WritableRaster;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.TreeSet;
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
 /**
  *  <i>Standard draw</i>. This class provides a basic capability for
@@ -151,7 +155,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 *
 	 * @param w the width as a number of pixels
 	 * @param h the height as a number of pixels
-	 * @throws java.lang.RuntimeException if the width or height is 0 or negative
+	 * @throws RuntimeException if the width or height is 0 or negative
 	 */
 	public static void setCanvasSize(int w, int h) {
 		if (w < 1 || h < 1) throw new RuntimeException("width and height must be positive");
@@ -307,7 +311,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Set the radius of the pen to the given size.
 	 * @param r the radius of the pen
-	 * @throws java.lang.RuntimeException if r is negative
+	 * @throws RuntimeException if r is negative
 	 */
 	public static void setPenRadius(double r) {
 		if (r < 0) throw new RuntimeException("pen radius must be positive");
@@ -405,7 +409,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param x the x-coordinate of the center of the circle
 	 * @param y the y-coordinate of the center of the circle
 	 * @param r the radius of the circle
-	 * @throws java.lang.RuntimeException if the radius of the circle is negative
+	 * @throws RuntimeException if the radius of the circle is negative
 	 */
 	public static void circle(double x, double y, double r) {
 		if (r < 0) throw new RuntimeException("circle radius can't be negative");
@@ -423,7 +427,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param x the x-coordinate of the center of the circle
 	 * @param y the y-coordinate of the center of the circle
 	 * @param r the radius of the circle
-	 * @throws java.lang.RuntimeException if the radius of the circle is negative
+	 * @throws RuntimeException if the radius of the circle is negative
 	 */
 	public static void filledCircle(double x, double y, double r) {
 		if (r < 0) throw new RuntimeException("circle radius can't be negative");
@@ -443,7 +447,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param y the y-coordinate of the center of the ellipse
 	 * @param semiMajorAxis is the semimajor axis of the ellipse
 	 * @param semiMinorAxis is the semiminor axis of the ellipse
-	 * @throws java.lang.RuntimeException if either of the axes are negative
+	 * @throws RuntimeException if either of the axes are negative
 	 */
 	public static void ellipse(double x, double y, double semiMajorAxis, double semiMinorAxis) {
 		if (semiMajorAxis < 0) throw new RuntimeException("ellipse semimajor axis can't be negative");
@@ -463,7 +467,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param y the y-coordinate of the center of the ellipse
 	 * @param semiMajorAxis is the semimajor axis of the ellipse
 	 * @param semiMinorAxis is the semiminor axis of the ellipse
-	 * @throws java.lang.RuntimeException if either of the axes are negative
+	 * @throws RuntimeException if either of the axes are negative
 	 */
 	public static void filledEllipse(double x, double y, double semiMajorAxis, double semiMinorAxis) {
 		if (semiMajorAxis < 0) throw new RuntimeException("ellipse semimajor axis can't be negative");
@@ -486,7 +490,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param angle1 the starting angle. 0 would mean an arc beginning at 3 o'clock.
 	 * @param angle2 the angle at the end of the arc. For example, if
 	 *        you want a 90 degree arc, then angle2 should be angle1 + 90.
-	 * @throws java.lang.RuntimeException if the radius of the circle is negative
+	 * @throws RuntimeException if the radius of the circle is negative
 	 */
 	public static void arc(double x, double y, double r, double angle1, double angle2) {
 		if (r < 0) throw new RuntimeException("arc radius can't be negative");
@@ -505,7 +509,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param x the x-coordinate of the center of the square
 	 * @param y the y-coordinate of the center of the square
 	 * @param r radius is half the length of any side of the square
-	 * @throws java.lang.RuntimeException if r is negative
+	 * @throws RuntimeException if r is negative
 	 */
 	public static void square(double x, double y, double r) {
 		if (r < 0) throw new RuntimeException("square side length can't be negative");
@@ -523,7 +527,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param x the x-coordinate of the center of the square
 	 * @param y the y-coordinate of the center of the square
 	 * @param r radius is half the length of any side of the square
-	 * @throws java.lang.RuntimeException if r is negative
+	 * @throws RuntimeException if r is negative
 	 */
 	public static void filledSquare(double x, double y, double r) {
 		if (r < 0) throw new RuntimeException("square side length can't be negative");
@@ -543,7 +547,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param y the y-coordinate of the center of the rectangle
 	 * @param halfWidth is half the width of the rectangle
 	 * @param halfHeight is half the height of the rectangle
-	 * @throws java.lang.RuntimeException if halfWidth or halfHeight is negative
+	 * @throws RuntimeException if halfWidth or halfHeight is negative
 	 */
 	public static void rectangle(double x, double y, double halfWidth, double halfHeight) {
 		if (halfWidth  < 0) throw new RuntimeException("half width can't be negative");
@@ -563,7 +567,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param y the y-coordinate of the center of the rectangle
 	 * @param halfWidth is half the width of the rectangle
 	 * @param halfHeight is half the height of the rectangle
-	 * @throws java.lang.RuntimeException if halfWidth or halfHeight is negative
+	 * @throws RuntimeException if halfWidth or halfHeight is negative
 	 */
 	public static void filledRectangle(double x, double y, double halfWidth, double halfHeight) {
 		if (halfWidth  < 0) throw new RuntimeException("half width can't be negative");
@@ -625,7 +629,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		// try to read from URL
 		if ((icon == null) || (icon.getImageLoadStatus() != MediaTracker.COMPLETE)) {
 			try {
-	            URL url = new java.net.URI(filename).toURL();
+	            URL url = new URI(filename).toURL();
 				icon = new ImageIcon(url);
 			} catch (Exception e) { /* not a url */ }
 		}
@@ -645,7 +649,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param x the center x-coordinate of the image
 	 * @param y the center y-coordinate of the image
 	 * @param s the name of the image/picture, e.g., "ball.gif"
-	 * @throws java.lang.RuntimeException if the image is corrupt
+	 * @throws RuntimeException if the image is corrupt
 	 */
 	public static void picture(double x, double y, String s) {
 		Image image = getImage(s);
@@ -666,7 +670,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param y the center y-coordinate of the image
 	 * @param s the name of the image/picture, e.g., "ball.gif"
 	 * @param degrees is the number of degrees to rotate counterclockwise
-	 * @throws java.lang.RuntimeException if the image is corrupt
+	 * @throws RuntimeException if the image is corrupt
 	 */
 	public static void picture(double x, double y, String s, double degrees) {
 		Image image = getImage(s);
@@ -690,8 +694,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param s the name of the image/picture, e.g., "ball.gif"
 	 * @param w the width of the image
 	 * @param h the height of the image
-	 * @throws java.lang.RuntimeException if the width height are negative
-	 * @throws java.lang.RuntimeException if the image is corrupt
+	 * @throws RuntimeException if the width height are negative
+	 * @throws RuntimeException if the image is corrupt
 	 */
 	public static void picture(double x, double y, String s, double w, double h) {
 		Image image = getImage(s);
@@ -722,7 +726,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param w the width of the image
 	 * @param h the height of the image
 	 * @param degrees is the number of degrees to rotate counterclockwise
-	 * @throws java.lang.RuntimeException if the image is corrupt
+	 * @throws RuntimeException if the image is corrupt
 	 */
 	public static void picture(double x, double y, String s, double w, double h, double degrees) {
 		Image image = getImage(s);

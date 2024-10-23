@@ -29,7 +29,7 @@ public class ArrayGenerator {
 	 *   doublesFromString("10.3 -Infinity 11)" generates the array { 10.3, -Infinity, 11.0 }
 	 * </pre>
 	 * 
-	 * @see java.lang.Double#parseDouble(java.lang.String)
+	 * @see Double#parseDouble(String)
 	 */
 	public static double[] doublesFromString (String s) {
 		if ("".equals (s)) return new double[0]; // empty array is a special case
@@ -51,7 +51,7 @@ public class ArrayGenerator {
 	 *   doublesFromString("10 11)" generates the array { 10, 11.0 }
 	 * </pre>
 	 * 
-	 * @see java.lang.Integer#parseInt(java.lang.String)
+	 * @see Integer#parseInt(String)
 	 */
 	public static int[] intsFromString (String s) {
 		if ("".equals (s)) return new int[0]; // empty array is a special case

@@ -1,9 +1,6 @@
 package stdlib;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+
+import java.io.*;
 import java.net.Socket;
 import java.net.URISyntaxException;
 import java.net.URL;

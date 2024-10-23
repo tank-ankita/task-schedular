@@ -7,11 +7,7 @@ package stdlib;
  *
  *************************************************************************/
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.Locale;
 
 /**

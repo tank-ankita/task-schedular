@@ -232,7 +232,7 @@ public final class StdIn {
 	 * If StdIn changes, use this to reinitialize the scanner.
 	 */
 	private static void resync() {
-		setScanner(new Scanner(new java.io.BufferedInputStream(System.in),
+		setScanner(new Scanner(new BufferedInputStream(System.in),
 				charsetName));
 	}
 

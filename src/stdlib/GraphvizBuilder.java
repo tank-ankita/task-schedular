@@ -6,13 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 // A fancy way to draw trees: http://stackoverflow.com/questions/10902745/enforcing-horizontal-node-ordering-in-a-dot-tree
 // GraphvizBuilder.nodesToFile (stack.first, "rankdir=\"LR\"");
