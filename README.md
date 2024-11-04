@@ -4,16 +4,20 @@
 The Task Scheduler is a command-line application that allows users and developers to manage tasks efficiently. It features task prioritization, dependency management, and a simple interface for executing tasks and tracking completion. This project is designed for ease of use and helps streamline task assignments for a team of developers.
 
 
+
 ## Table of Contents
 
 - Getting Started
-- Install Dependencies
+- Installation
+- Testing
 - Features
 - Project Structure
 - Usage
 - Developer Guide
-- Testing
+
 - Contributing
+- License
+
 
 ## Getting Started
 
@@ -21,11 +25,11 @@ The Task Scheduler is a command-line application that allows users and developer
 Ensure you have the following installed:
 
 - Java Development Kit (JDK) 8 or higher: Download JDK
-- IntelliJ IDEA
+- IntelliJ IDEA or any Java IDE
 - JUnit 4.13.2 and Hamcrest Core 1.3 for testing
 
 
-##  Install Dependencies
+##  Installation
 1. Clone the Repository
 ```bash
 git clone https://github.com/tank-ankita/task-schedular.git
@@ -34,11 +38,50 @@ git clone https://github.com/tank-ankita/task-schedular.git
 
 - Launch IntelliJ IDEA and select "Open".
 - Navigate to the project directory and open it.
+- you will see an MVN build prompt, go ahead and build the project through the prompt.
 
-3. Set Up JUnit:
+3. Run project\
 
-- Right-click the project in IntelliJ and select "Add Framework Support".
-- Check JUnit and download it if prompted.
+Using Terminal
+```bash
+cd task-schedular/src/main/java/org/scheduler/
+java Main.java
+```
+Using IDE\
+Open `Main.java`\
+Click the `Play/Run button` at the Top right on the `Main.java` file
+
+## Testing
+**Running Tests Using IntelliJ**
+
+- Right-click on the `org.schdeuler` folder and select `Run All Tests`
+
+**Running Tests Using Terminal through MVN**
+
+```bash
+brew install mvn
+```
+
+Once Installed, move to the parent directory
+```bash
+cd/task-schedular
+
+// to run all test run below code
+mvn clean test 
+
+// to run individual tests run below code
+mvn clean test -Dtest=org.scheduler.DeveloperTest.java
+mvn clean test -Dtest=org.scheduler.TaskTest.java
+mvn clean test -Dtest=org.scheduler.TaskSchedulerTest.java
+```
+
+**Test Coverage**
+
+- DeveloperTest.java: Tests creating developers and checking their properties.
+- TaskTest.java: Tests creating tasks and checking their properties.
+- TaskSchedulerTest.java: Tests core functionality like task execution, dependency handling, and searching.
+
+
 
 ## Features
 
@@ -81,16 +124,10 @@ The application presents a menu with the following options:
 | Exit the Program    | 8    | 8|
 
 
-
 ## Developer Guide
 **Setting Up the Project**
-- Add JUnit to Your Project: Follow the setup instructions to add JUnit and Hamcrest to your classpath.
+- Add JUnit to Your Project: Follow the setup instructions.
 - Compile the Code: Use your IDE’s build tool or run:
-
-```
-javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar src/main/java/org/scheduler/*.java
-```
-
 - Run the Application: Open Main.java and run it.
 
 **Code Explanation**
@@ -100,18 +137,6 @@ javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar src/main/java/org/scheduler/*
 - Developer.java: Represents a developer with fields id and name.
 - Main.java: The application's entry point that provides a menu-based interface for users.
 
-## Testing
-**Running Tests Using IntelliJ**
-
-- Right-click on the `test` folder and select "Run All Tests".
-
-**Test Coverage**
-
-- DeveloperTest.java: Tests adding and managing developers.
-- TaskTest.java: Tests creating tasks and checking their properties.
-- TaskSchedulerTest.java: Tests core functionality like task execution, dependency handling, and searching.
-
-
 
 ## Contributing
 
@@ -119,6 +144,6 @@ javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar src/main/java/org/scheduler/*
 2. Create your feature branch ```git checkout -b feature/YourFeature```
 3. Commit Your Changes: ```git commit -m "Add YourFeature"```
 4. Push to the Branch:```git push origin feature/YourFeature```
-5. Open a Pull Request: Submit your changes for review against the `main` branch.
+5. Open a Pull Request: Submit your changes for review against the **main** branch.
 
     
