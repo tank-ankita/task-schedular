@@ -20,7 +20,7 @@ Purpose: To create a new task and assign it to a developer, set its priority, an
 - Example: 2 John, Fix Bug, 1, 0
 - Instructions:
     - DeveloperName: Name of the developer to whom the task is assigned.
-    - TaskDescription: A brief description of the task enclosed in quotes.
+    - TaskDescription: A brief description of the task.
     - Priority: A number from 1 to 5, where 1 is the highest priority and 5 is the lowest.
     - Dependency: The ID of another task this task depends on. Use 0 if there is no dependency.
 - Note: Make sure to resolve dependencies for smooth task execution.
