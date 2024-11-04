@@ -83,7 +83,6 @@ mvn clean test -Dtest=org.scheduler.TaskSchedulerTest.java
 - TaskSchedulerTest.java: Tests core functionality like task execution, dependency handling, and searching.
 
 
-
 ## Features
 
 - Add Developers: Easily add new developers to the team.
