@@ -1,102 +1,124 @@
-# Task-schedular
-A lightweight task scheduling system built in Java that allows users to manage tasks, assign them to developers, and execute them based on priority using a custom priority queue (min-heap). 
-The scheduler supports task dependencies, ensuring that tasks are only executed if all dependencies are satisfied.
+# <p align="left">Task Scheduler </p>
 
-1. Table of Contents
-2. Features
-3. Technologies Used
-4. Installation
-5. Usage
-6. Classes Overview
+## Overview
+The Task Scheduler is a command-line application that allows users and developers to manage tasks efficiently. It features task prioritization, dependency management, and a simple interface for executing tasks and tracking completion. This project is designed for ease of use and helps streamline task assignments for a team of developers.
+
+
+## Table of Contents
+
+- Getting Started
+- Install Dependencies
+- Features
+- Project Structure
+- Usage
+- Developer Guide
+- Testing
+- Contributing
+
+## Getting Started
+
+**Prerequisites**\
+Ensure you have the following installed:
+
+- Java Development Kit (JDK) 8 or higher: Download JDK
+- IntelliJ IDEA
+- JUnit 4.13.2 and Hamcrest Core 1.3 for testing
+
+
+##  Install Dependencies
+1. Clone the Repository
+```bash
+git clone https://github.com/tank-ankita/task-schedular.git
+```
+2. Open the Project in IntelliJ:
+
+- Launch IntelliJ IDEA and select "Open".
+- Navigate to the project directory and open it.
+
+3. Set Up JUnit:
+
+- Right-click the project in IntelliJ and select "Add Framework Support".
+- Check JUnit and download it if prompted.
 
 ## Features
-Add Developers: Add new developers to the team.\
-Create Tasks: Add tasks with descriptions, priorities, dependencies, and assign them to developers. \
-Priority-based Execution: Uses a min-heap to execute the highest-priority task. \
-Dependency Management: Ensures that tasks can only be executed if all dependent tasks are completed. \
-Track User Tasks: View pending and completed tasks for each developer. \
-Custom Priority Queue: Implements a priority queue using a heap data structure. \
 
-## Technologies Used  
-Java 17 or higher \
-Min-Heap for Priority Queue Management \ 
-HashMap and ArrayList for user-task management \
+- Add Developers: Easily add new developers to the team.
+- Create Tasks: Assign tasks to developers, set priorities, and manage dependencies.
+- Execute Tasks: Execute tasks individually or all simultaneously, with dependency checks.
+- Search Tasks: Quickly search for tasks by ID or developer name.
+- Track Completed Tasks: View tasks completed by developers.
 
-## Installation
-### Clone the repository:
+## Project Structure
 
-<pre><code> 
-git clone https://github.com/your-username/task-scheduler.git 
-cd task-scheduler
-
-</code></pre>
-
-### Compile the Java files:
-<pre><code> 
-javac *.java
-
-</code></pre>
+/src\
+|── /main/java/org/scheduler\
+│     |── Developer.java\
+│     |── Task.java\
+│     |── TaskScheduler.java\
+│     |── Main.java\
+|── /main/java/org/scheduler/stdlib\
+│     |── (Standard input and utility classes)\
+|── /test\
+│     |── DeveloperTest.java\
+│     |── TaskTest.java\
+│     |── TaskSchedulerTest.java\
 
 
-
-### Run the application:
-<pre><code> 
-java Main
-
-</code></pre>
 
 ## Usage
-Below are the key functions available in the Task Scheduler.
+### Application Menu
+The application presents a menu with the following options:
 
-### Add a Developer:
-<pre><code> 
-taskScheduler.addUser("Alice");
-Output: => 'Alice' has been added to the team with id: '1'
-
-</code></pre>
-
-### Add a Task:
-<pre><code> 
-List<String> dependencies = List.of("1", "2");
-taskScheduler.addTask(0, "Implement Login System", 2, dependencies, "Alice");
-Output: => Task 3 added for user 'Alice'
-
-</code></pre>
-
-
-### Execute a Task by ID:
-<pre><code> 
-taskScheduler.executeTaskById(3);
-Output: 
-If dependencies are met: => Executing Task: 3 for user Alice
-If dependencies are not met: => Task 3 cannot be executed. Unmet dependencies: [1, 2]
-
-</code></pre>
+| Functioanlity| Command |  Example|
+| -------- | -------- | -------- |
+| Add Developer   | 1 DeveloperName   | 1 John    |
+| Create New Task    | 2 DeveloperName, Task Description, Priority, Dependency    | 2 John, Fix Bug, 1, 0    |
+| Execute Task by ID    | 3 TaskId    | 3 1    |
+| Execute All Tasks    | 4    | 4    |
+| Show Developer Completed Tasks    | 5 DeveloperName   | 5 John   |
+| Search Task by ID    | 6 TaskId    | 6 1    |
+| Show Tasks Assigned to Developer    | 7 DeveloperName    | 7 John    |
+| Exit the Program    | 8    | 8|
 
 
 
-### Search for a Task:
-<pre><code> 
-taskScheduler.searchTask(3);
-Output: => Task ID: 3 || Epic ID: 0 || Description: Implement Login System || Priority: 2
+## Developer Guide
+**Setting Up the Project**
+- Add JUnit to Your Project: Follow the setup instructions to add JUnit and Hamcrest to your classpath.
+- Compile the Code: Use your IDE’s build tool or run:
 
-</code></pre>
+```
+javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar src/main/java/org/scheduler/*.java
+```
 
-### Show User Tasks:
-<pre><code> 
-taskScheduler.showUserTasks("Alice");
-Output: => Pending tasks for developer Alice:
+- Run the Application: Open Main.java and run it.
 
-</code></pre>
+**Code Explanation**
 
-## Classes Overview
-1. TaskScheduler.java\
-   Manages users, tasks, and their dependencies.\
-   Handles task creation, search, and execution logic.
-2. Task.java\
-   Represents a task with attributes such as ID, priority, epic ID, description, dependencies, and assigned user.
-3. MinPQ.java\
-   A min-heap-based priority queue that ensures tasks with the lowest priority value are executed first.
-   Implements insert(), extractMin(), and heapify() methods.
-4. Developer.java\
-   Developer information 
+- TaskScheduler.java: Manages tasks, developers, and the logic for executing tasks based on dependencies and priorities.
+- Task.java: Represents a task with fields like id, priority, description, developer, and dependency.
+- Developer.java: Represents a developer with fields id and name.
+- Main.java: The application's entry point that provides a menu-based interface for users.
+
+## Testing
+**Running Tests Using IntelliJ**
+
+- Right-click on the `test` folder and select "Run All Tests".
+
+**Test Coverage**
+
+- DeveloperTest.java: Tests adding and managing developers.
+- TaskTest.java: Tests creating tasks and checking their properties.
+- TaskSchedulerTest.java: Tests core functionality like task execution, dependency handling, and searching.
+
+
+
+## Contributing
+
+1. Fork the Project: Create a fork of the repository.
+2. Create your feature branch ```git checkout -b feature/YourFeature```
+3. Commit Your Changes: ```git commit -m "Add YourFeature"```
+4. Push to the Branch:```git push origin feature/YourFeature```
+5. Open a Pull Request: Submit your changes for review against the `main` branch.
+
+    
