@@ -40,21 +40,22 @@ git clone https://github.com/tank-ankita/task-schedular.git
 - Navigate to the project directory and open it.
 - you will see an MVN build prompt, go ahead and build the project through the prompt.
 
-3. Run project\
+3. Build project. File →  Build Project
 
 Using Terminal
 ```bash
-cd task-schedular/src/main/java/org/scheduler/
+cd task-schedular
+cd src/main/java/org/scheduler/
 java Main.java
 ```
 Using IDE\
-Open `Main.java`\
+Open `Main.java` under directory `src/main/java/org/scheduler/Main.java`\
 Click the `Play/Run button` at the Top right on the `Main.java` file
 
 ## Testing
 **Running Tests Using IntelliJ**
 
-- Right-click on the `org.schdeuler` folder and select `Run All Tests`
+- Under directory `src/test/java` Right-click on the `org.schdeuler` directory and select `Run Tests in org.schdeuler`
 
 **Running Tests Using Terminal through MVN**
 
