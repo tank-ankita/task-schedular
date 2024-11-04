@@ -95,11 +95,8 @@ Output: => Pending tasks for developer Alice:
    Handles task creation, search, and execution logic.
 2. Task.java\
    Represents a task with attributes such as ID, priority, epic ID, description, dependencies, and assigned user.
-3. TaskPriorityQueue.java\
+3. MinPQ.java\
    A min-heap-based priority queue that ensures tasks with the lowest priority value are executed first.
    Implements insert(), extractMin(), and heapify() methods.
 4. Developer.java\
    Developer information 
-
-
-Let me know if you need any additional sections or improvements!
