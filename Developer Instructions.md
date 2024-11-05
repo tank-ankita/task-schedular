@@ -78,6 +78,10 @@ mvn clean test -Dtest=org.scheduler.TaskTest
 mvn clean test -Dtest=org.scheduler.TaskSchedulerTest
 ```
 
+- To run `PerformanceTest.java`:
+``` bash 
+mvn clean test -Dtest=org.scheduler.PerformanceTest
+```
 ---------
 ### Notes
 

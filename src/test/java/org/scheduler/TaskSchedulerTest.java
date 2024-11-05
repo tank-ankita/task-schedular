@@ -286,7 +286,7 @@ public class TaskSchedulerTest {
         scheduler.markTaskAsCompleted(task1);
 
         // Check if Task 2 dependencies are resolved
-        // Task2 should NOT be resolved
+        // Task2 should **NOT** be resolved
         Task task2 = scheduler.getTaskById(2);
         boolean dependenciesResolved = scheduler.areDependenciesResolved(task2);
         assertFalse(dependenciesResolved);
@@ -295,10 +295,9 @@ public class TaskSchedulerTest {
         scheduler.markTaskAsCompleted(task3);
 
         // Check if Task 2 dependencies are resolved
-        // Task2 should be resolved
+        // Task2 **should** be resolved
         task2 = scheduler.getTaskById(2);
         dependenciesResolved = scheduler.areDependenciesResolved(task2);
         assertTrue(dependenciesResolved);
-
     }
 }

@@ -1,8 +1,7 @@
 # <p align="left">Task Scheduler </p>
 
 ## Overview
-The Task Scheduler is a command-line application that allows users and developers to manage tasks efficiently. It features task prioritization, dependency management, and a simple interface for executing tasks and tracking completion. This project is designed for ease of use and helps streamline task assignments for a team of developers.
-
+The Task Scheduler is a command-line application that allows developers to manage tasks efficiently. It features task prioritization, dependency management, and a simple interface for executing tasks and tracking completion. This project is designed for ease of use and helps streamline task assignments for a team of developers.
 
 
 ## Table of Contents
@@ -13,11 +12,7 @@ The Task Scheduler is a command-line application that allows users and developer
 - Features
 - Project Structure
 - Usage
-- Developer Guide
-
 - Contributing
-- License
-
 
 ## Getting Started
 
@@ -29,67 +24,147 @@ Ensure you have the following installed:
 - JUnit 4.13.2 and Hamcrest Core 1.3 for testing
 
 
-##  Installation
-1. Clone the Repository
-```bash
+
+## Installation
+**1. Clone the Repository**\
+Clone the project using the following command:
+
+``` bash 
 git clone https://github.com/tank-ankita/task-schedular.git
 ```
-2. Open the Project in IntelliJ:
+
+**2. Open the Project in IntelliJ**
 
 - Launch IntelliJ IDEA and select "Open".
 - Navigate to the project directory and open it.
-- you will see an MVN build prompt, go ahead and build the project through the prompt.
+- You will see an MVN build prompt; proceed to build the project through this prompt.
 
-3. Build project. File →  Build Project
+**3. Build the Project**
 
-Using Terminal
-```bash
+- Go to File → Build Project in IntelliJ.
+
+### Running the Application
+**Using Terminal**
+
+Navigate to the project directory:
+``` bash 
 cd task-schedular
 cd src/main/java/org/scheduler/
 java Main.java
 ```
-Using IDE\
-Open `Main.java` under directory `src/main/java/org/scheduler/Main.java`\
-Click the `Play/Run button` at the Top right on the `Main.java` file
+**Using IDE**
 
+1. Open `Main.java` located in `src/main/java/org/scheduler/Main.java.`
+2. Click the Run/Play button in the top right corner of the IDE with `Main.java `file.
+
+----------
 ## Testing
 **Running Tests Using IntelliJ**
 
-- Under directory `src/test/java` Right-click on the `org.schdeuler` directory and select `Run Tests in org.schdeuler`
+- Navigate to the `src/test/java` directory.
+- Right-click on the `org.scheduler` directory and select `"Run Tests in org.scheduler"`.
 
-**Running Tests Using Terminal through MVN**
+**Running Tests Using Terminal with Maven**
 
-```bash
+**1. Install Maven (if you haven't already):**
+
+``` bash 
 brew install mvn
 ```
 
-Once Installed, move to the parent directory
-```bash
-cd/task-schedular
-
-// to run all test run below code
-mvn clean test 
-
-// to run individual tests run below code
-mvn clean test -Dtest=org.scheduler.DeveloperTest.java
-mvn clean test -Dtest=org.scheduler.TaskTest.java
-mvn clean test -Dtest=org.scheduler.TaskSchedulerTest.java
+**2. Navigate to the Parent Directory:**
+``` bash 
+cd task-schedular
 ```
 
-**Test Coverage**
+**3. Run All Tests:**
 
-- DeveloperTest.java: Tests creating developers and checking their properties.
-- TaskTest.java: Tests creating tasks and checking their properties.
-- TaskSchedulerTest.java: Tests core functionality like task execution, dependency handling, and searching.
+``` bash 
+mvn clean test
+```
 
+**4. Run Individual Tests:**
+
+- To run `DeveloperTest.java`:
+``` bash 
+mvn clean test -Dtest=org.scheduler.DeveloperTest
+``` 
+
+- To run `TaskTest.java`:
+``` bash 
+mvn clean test -Dtest=org.scheduler.TaskTest
+```
+
+- To run `TaskSchedulerTest.java`:
+``` bash 
+mvn clean test -Dtest=org.scheduler.TaskSchedulerTest
+```
+
+- To run `PerformanceTest.java`:
+``` bash 
+mvn clean test -Dtest=org.scheduler.PerformanceTest
+```
+---------
 
 ## Features
 
-- Add Developers: Easily add new developers to the team.
-- Create Tasks: Assign tasks to developers, set priorities, and manage dependencies.
-- Execute Tasks: Execute tasks individually or all simultaneously, with dependency checks.
-- Search Tasks: Quickly search for tasks by ID or developer name.
-- Track Completed Tasks: View tasks completed by developers.
+
+**1. Add Developer**\
+Purpose: To add a new developer to the team.
+
+- Input Format: 1 DeveloperName
+- Example: 1 John
+- Instructions: Enter 1 followed by the developer's name. The application will confirm the addition or notify you if the developer already exists.
+
+**2. Create New Task**\
+Purpose: To create a new task and assign it to a developer, set its priority, and specify any dependencies.
+
+- Input Format: 2 DeveloperName,TaskDescription,Priority, Dependency
+- Example: 2 John, Fix Bug, 1, 0
+- Instructions:
+    - DeveloperName: Name of the developer to whom the task is assigned.
+    - TaskDescription: A brief description of the task.
+    - Priority: A number from 1 to 5, where 1 is the highest priority and 5 is the lowest.
+    - Dependencies: The IDs of another tasks this task depends on. Use 0 if there is no dependency.
+- Note: Make sure to resolve dependencies for smooth task execution.
+
+**3. Execute Task by ID**\
+Purpose: To execute a specific task by providing its ID.
+
+- Input Format: 3 TaskId
+- Example: 3 1
+- Instructions: Enter 3 followed by the task ID. The application will check for unresolved dependencies and either execute the task or display a message.
+
+**4. Execute All Tasks**\
+Purpose: To execute all tasks in order of priority, while resolving dependencies.
+
+- Input Format: 4
+- Instructions: Enter 4 to attempt to execute all tasks. The application will execute as many tasks as possible and inform you if any tasks cannot be executed due to unresolved dependencies.
+
+
+**5. Show Developer Completed Tasks**\
+Purpose: To view all completed tasks assigned to a specific developer.
+
+- Input Format: 5 DeveloperName
+- Example: 5 John
+- Instructions: Enter 5 followed by the developer's name. The application will display a list of completed tasks or inform you if none have been completed.
+
+**6. Search Task by ID**\
+Purpose: To search for and display details of a specific task by its ID.
+
+- Input Format: 6 TaskId
+- Example: 6 1
+- Instructions: Enter 6 followed by the task ID. The application will display task details or notify you if the task is not found.
+
+**7. Show Tasks Assigned to Developer**\
+Purpose: To view all pending tasks assigned to a specific developer.
+
+- Input Format: 7 DeveloperName
+- Example: 7 John
+- Instructions: Enter 7 followed by the developer's name. The application will list all pending tasks or inform you if the developer has no tasks assigned.
+
+**8. Exit the Program**\
+Purpose: To exit the application.
 
 ## Project Structure
 
@@ -103,6 +178,7 @@ mvn clean test -Dtest=org.scheduler.TaskSchedulerTest.java
 │     |── (Standard input and utility classes)\
 |── /test\
 │     |── DeveloperTest.java\
+│     |── PerformanceTest.java\
 │     |── TaskTest.java\
 │     |── TaskSchedulerTest.java\
 
@@ -122,20 +198,6 @@ The application presents a menu with the following options:
 | Search Task by ID    | 6 TaskId                                                  | 6 1                       |
 | Show Tasks Assigned to Developer    | 7 DeveloperName                                           | 7 Tank                    |
 | Exit the Program    | 8                                                         | 8                         |
-
-
-## Developer Guide
-**Setting Up the Project**
-- Add JUnit to Your Project: Follow the setup instructions.
-- Compile the Code: Use your IDE’s build tool or run:
-- Run the Application: Open Main.java and run it.
-
-**Code Explanation**
-
-- TaskScheduler.java: Manages tasks, developers, and the logic for executing tasks based on dependencies and priorities.
-- Task.java: Represents a task with fields like id, priority, description, developer, and dependency.
-- Developer.java: Represents a developer with fields id and name.
-- Main.java: The application's entry point that provides a menu-based interface for users.
 
 
 ## Contributing
