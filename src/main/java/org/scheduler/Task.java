@@ -3,6 +3,8 @@ package org.scheduler;
 // Project - Task Scheduler
 // November 2024
 
+import java.util.List;
+
 // Class to represent each Task in the Task Scheduler
 public class Task implements Comparable<Task> {
     // Unique identifier for the task
@@ -18,15 +20,15 @@ public class Task implements Comparable<Task> {
     String developer;
 
     // Dependency of the task, represented by the ID of another task that must be completed first
-    int dependency;
+    List<Integer> dependencies;
 
     // Constructor to initialize a new Task object with the given properties
-    public Task(int id, String description, int priority, int dependency, String developer) {
+    public Task(int id, String description, int priority, List<Integer> dependencies, String developer) {
         this.id = id;
         this.priority = priority;
         this.description = description;
         this.developer = developer;
-        this.dependency = dependency;
+        this.dependencies = dependencies;
     }
 
     // Method to compare tasks based on their priority

@@ -6,6 +6,7 @@ package org.scheduler;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -41,8 +42,8 @@ public class TaskSchedulerTest {
         scheduler.addUser("Developer1");
 
         // Add tasks for the developer
-        scheduler.addTask("Fix Bug", 1, 0, "Developer1");
-        scheduler.addTask("Implement Feature", 3, 0, "Developer1");
+        scheduler.addTask("Fix Bug", 1, new ArrayList<>(List.of(0)), "Developer1");
+        scheduler.addTask("Implement Feature", 3, new ArrayList<>(List.of(0)), "Developer1");
 
         // Check if tasks are correctly added to taskMap
         assertEquals(2, scheduler.getTaskMap().size());
@@ -53,13 +54,13 @@ public class TaskSchedulerTest {
         Task task1 = scheduler.getTaskMap().get(1);
         assertEquals("Fix Bug", task1.description);
         assertEquals(1, task1.priority);
-        assertEquals(0, task1.dependency);
+        assertEquals(List.of(0), task1.dependencies);
         assertEquals("Developer1", task1.developer);
 
         Task task2 = scheduler.getTaskMap().get(2);
         assertEquals("Implement Feature", task2.description);
         assertEquals(3, task2.priority);
-        assertEquals(0, task2.dependency);
+        assertEquals(List.of(0), task2.dependencies);
         assertEquals("Developer1", task2.developer);
 
         // Check if tasks are associated with the developer in userTasks
@@ -73,7 +74,7 @@ public class TaskSchedulerTest {
     public void testGetTaskById() {
         // Add a developer and tasks to the scheduler
         scheduler.addUser("Developer1");
-        scheduler.addTask("Fix Bug", 1, 0, "Developer1");
+        scheduler.addTask("Fix Bug", 1,  new ArrayList<>(List.of(0)), "Developer1");
 
         // Test getting a task that exists
         // The task should not be null
@@ -82,7 +83,7 @@ public class TaskSchedulerTest {
         assertEquals(1, task.id);
         assertEquals("Fix Bug", task.description);
         assertEquals(1, task.priority);
-        assertEquals(0, task.dependency);
+        assertEquals(List.of(0), task.dependencies);
         assertEquals("Developer1", task.developer);
 
         // Test getting a task that does not exist
@@ -95,8 +96,8 @@ public class TaskSchedulerTest {
     public void testGetTaskIdsByName() {
         // Add a developer and tasks
         scheduler.addUser("Developer1");
-        scheduler.addTask("Fix Bug", 1, 0, "Developer1");
-        scheduler.addTask("Implement Feature", 2, 0, "Developer1");
+        scheduler.addTask("Fix Bug", 1,  new ArrayList<>(List.of(0)), "Developer1");
+        scheduler.addTask("Implement Feature", 2,  new ArrayList<>(List.of(0)), "Developer1");
 
         // Test getting task IDs for an existing developer
         List<Integer> taskIds = scheduler.getTaskIdsByName("Developer1");
@@ -115,8 +116,8 @@ public class TaskSchedulerTest {
     public void testGetCompletedTasksByName() {
         // Add a developer and tasks to the scheduler
         scheduler.addUser("Developer1");
-        scheduler.addTask("Fix Bug", 1, 0, "Developer1");
-        scheduler.addTask("Implement Feature", 2, 0, "Developer1");
+        scheduler.addTask("Fix Bug", 1,  new ArrayList<>(List.of(0)), "Developer1");
+        scheduler.addTask("Implement Feature", 2,  new ArrayList<>(List.of(0)), "Developer1");
 
         // Simulate completing tasks
         scheduler.executeTaskById(1); // Mark task ID 1 as completed
@@ -153,7 +154,7 @@ public class TaskSchedulerTest {
         scheduler.addUser("Developer1");
 
         // Test case: Task with no dependencies
-        scheduler.addTask("Task with No Dependency", 1, 0, "Developer1");
+        scheduler.addTask("Task with No Dependency", 1,  new ArrayList<>(List.of(0)), "Developer1");
         Task taskWithNoDependency = scheduler.getTaskById(1);
         assertTrue(scheduler.areDependenciesResolved(taskWithNoDependency));
 
@@ -161,15 +162,15 @@ public class TaskSchedulerTest {
         // Task ID 2
         // Task ID 3 depends on Task ID 2
         // Mark Task ID 2 as completed
-        scheduler.addTask("Independent Task", 2, 0, "Developer1");
-        scheduler.addTask("Task with Resolved Dependency", 3, 2, "Developer1");
+        scheduler.addTask("Independent Task", 2,  new ArrayList<>(List.of(0)), "Developer1");
+        scheduler.addTask("Task with Resolved Dependency", 3,  new ArrayList<>(List.of(2)), "Developer1");
         scheduler.executeTaskById(2);
         Task taskWithResolvedDependency = scheduler.getTaskById(3);
         assertTrue(scheduler.areDependenciesResolved(taskWithResolvedDependency));
 
         // Test case: Task with an unresolved dependency
         // Task ID 4 depends on Task ID 3 (which isn't marked as completed yet)
-        scheduler.addTask("Task with Unresolved Dependency", 4, 3, "Developer1");
+        scheduler.addTask("Task with Unresolved Dependency", 4,  new ArrayList<>(List.of(3)), "Developer1");
         Task taskWithUnresolvedDependency = scheduler.getTaskById(4);
         assertFalse(scheduler.areDependenciesResolved(taskWithUnresolvedDependency));
     }
@@ -180,12 +181,12 @@ public class TaskSchedulerTest {
         scheduler.addUser("Developer1");
 
         // Test case: Tasks with no dependencies
-        scheduler.addTask("Task 1", 2, 0, "Developer1"); // Priority 2, no dependency
-        scheduler.addTask("Task 2", 1, 0, "Developer1"); // Priority 1, no dependency
+        scheduler.addTask("Task 1", 2,  new ArrayList<>(List.of(0)), "Developer1"); // Priority 2, no dependency
+        scheduler.addTask("Task 2", 1,  new ArrayList<>(List.of(0)), "Developer1"); // Priority 1, no dependency
 
         // Test case: Tasks with dependencies
-        scheduler.addTask("Task 3", 3, 2, "Developer1"); // Priority 3, depends on Task 2
-        scheduler.addTask("Task 4", 4, 3, "Developer1"); // Priority 4, depends on Task 3
+        scheduler.addTask("Task 3", 3,  new ArrayList<>(List.of(2)), "Developer1"); // Priority 3, depends on Task 2
+        scheduler.addTask("Task 4", 4,  new ArrayList<>(List.of(3)), "Developer1"); // Priority 4, depends on Task 3
 
         // Capture initial completed tasks
         List<Integer> initialCompletedTasks = scheduler.getCompletedTasksByName("Developer1");
@@ -214,8 +215,8 @@ public class TaskSchedulerTest {
         scheduler.addUser("Developer2");
 
         // Test case: Task with unresolved dependencies
-        scheduler.addTask("Independent Task", 1, 0, "Developer2"); // Task with no dependencies
-        scheduler.addTask("Dependent Task", 2, 99, "Developer2");  // Task depends on a non-existent Task ID 99
+        scheduler.addTask("Independent Task", 1,  new ArrayList<>(List.of(0)), "Developer2"); // Task with no dependencies
+        scheduler.addTask("Dependent Task", 2,  new ArrayList<>(List.of(99)), "Developer2");  // Task depends on a non-existent Task ID 99
 
         // Execute all tasks
         scheduler.executeAllTasks();
@@ -233,7 +234,7 @@ public class TaskSchedulerTest {
     public void testMarkTaskAsCompleted() {
         // Add a developer and a task to the scheduler
         scheduler.addUser("Developer1");
-        scheduler.addTask("Task 1", 1, 0, "Developer1");
+        scheduler.addTask("Task 1", 1,  new ArrayList<>(List.of(0)), "Developer1");
 
         // Retrieve the task and mark it as completed
         Task task = scheduler.getTaskById(1);
@@ -250,37 +251,54 @@ public class TaskSchedulerTest {
         assertTrue(completedTaskList.contains(1));
     }
 
+    @Test
+    public void testDependenciesResolved() {
+        // Add developers to the scheduler
+        scheduler.addUser("Developer1");
+        scheduler.addUser("Developer2");
+        // Create tasks with no dependencies
+        scheduler.addTask("Task 1", 1, new ArrayList<>(List.of(0)), "Developer1");
+        scheduler.addTask("Task 2", 2, new ArrayList<>(List.of(1)), "Developer2");
 
-//    @Test
-//    public void testExecuteTaskById() {
-//        scheduler.addUser("John");
-//        scheduler.addTask("Fix Bug", 1, 0, "John");
-//        scheduler.executeTaskById(1);
-//        // Attempt to execute non-existing task
-//        scheduler.executeTaskById(99);
-//    }
-//
-//    @Test
-//    public void testDependencyResolution() {
-//        scheduler.addUser("John");
-//        scheduler.addTask("Task 1", 1, 0, "John"); // No dependency
-//        scheduler.addTask("Task 2", 2, 1, "John"); // Depends on Task 1
-//
-//        scheduler.executeTaskById(2); // Should not execute
-//        scheduler.executeTaskById(1); // Should execute
-//        scheduler.executeTaskById(2); // Should now execute
-//    }
-//
-//    @Test
-//    public void testEdgeCases() {
-//        // Edge case: Executing tasks when no tasks exist
-//        scheduler.executeAllTasks();
-//
-//        // Edge case: Adding task to non-existing developer
-//        scheduler.addTask("Task without Developer", 1, 0, "Ghost");
-//
-//        // Edge case: Handling null or empty strings for developer names
-//        scheduler.addUser(null);
-//        scheduler.addUser("");
-//    }
+        // Manually mark Task 1 as completed
+        Task task1 = scheduler.getTaskById(1);
+        scheduler.markTaskAsCompleted(task1);
+
+        // Check if Task 2 dependencies are resolved
+        Task task2 = scheduler.getTaskById(2);
+        boolean dependenciesResolved = scheduler.areDependenciesResolved(task2);
+        assertTrue(dependenciesResolved);
+    }
+
+    @Test
+    public void testMultipleDependencyTasks() {
+        scheduler.addUser("Developer1");
+        scheduler.addUser("Developer2");
+
+        // Create tasks with dependencies
+        scheduler.addTask("Task 1", 1,  new ArrayList<>(List.of()), "Developer1");
+        scheduler.addTask("Task 2", 2,  new ArrayList<>(List.of(1, 3)), "Developer2");
+        scheduler.addTask("Task 3", 3,  new ArrayList<>(List.of()), "Developer2");
+
+        // Mark Task 1 as completed but not Task 3
+        Task task1 = scheduler.getTaskById(1);
+        Task task3 = scheduler.getTaskById(3);
+        scheduler.markTaskAsCompleted(task1);
+
+        // Check if Task 2 dependencies are resolved
+        // Task2 should NOT be resolved
+        Task task2 = scheduler.getTaskById(2);
+        boolean dependenciesResolved = scheduler.areDependenciesResolved(task2);
+        assertFalse(dependenciesResolved);
+
+        // Resolve task3
+        scheduler.markTaskAsCompleted(task3);
+
+        // Check if Task 2 dependencies are resolved
+        // Task2 should be resolved
+        task2 = scheduler.getTaskById(2);
+        dependenciesResolved = scheduler.areDependenciesResolved(task2);
+        assertTrue(dependenciesResolved);
+
+    }
 }

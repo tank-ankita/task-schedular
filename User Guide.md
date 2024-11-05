@@ -22,7 +22,7 @@ Purpose: To create a new task and assign it to a developer, set its priority, an
     - DeveloperName: Name of the developer to whom the task is assigned.
     - TaskDescription: A brief description of the task.
     - Priority: A number from 1 to 5, where 1 is the highest priority and 5 is the lowest.
-    - Dependency: The ID of another task this task depends on. Use 0 if there is no dependency.
+    - Dependencies: The IDs of another tasks this task depends on. Use 0 if there is no dependency.
 - Note: Make sure to resolve dependencies for smooth task execution.
 
 **3. Execute Task by ID**\
@@ -83,18 +83,17 @@ Purpose: To exit the application.
 ### Example User flow
 1. Adding Developers and Creating Tasks:
     - Input: 1 Tank
-    - Input: 2 Tank, Develop Feature X, 2, 0
-    - Input: 2 Tank,Fix Bug Y, 1, 1
+    - Input: 2 Tank, Develop Feature X, 2, 1 3 4 (This task depends on taskId 1, 3 and 4)
+    - Input: 2 Tank, Fix Bug Y, 1, 1
 
 2. Executing Tasks:
-
     - Input: 3 1  (Executes "Fix Bug Y" if dependencies are resolved)
     - Input: 4   (Attempts to execute all tasks)
 
 3. Searching and Viewing Tasks:
-- Input: 6 1 (Searches for task with ID 1)
-- Input: 7 Tank (Shows all tasks assigned to Tank)
-- Input: 5 Tank (Shows all completed tasks for Tank)
+   - Input: 6 1 (Searches for task with ID 1)
+   - Input: 7 Tank (Shows all tasks assigned to Tank)
+   - Input: 5 Tank (Shows all completed tasks for Tank)
 
 
 ----------

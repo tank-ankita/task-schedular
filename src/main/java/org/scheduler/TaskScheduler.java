@@ -55,7 +55,7 @@ class TaskScheduler {
     }
 
     // Method to add a new task and assign it to a developer
-    public void addTask(String description, int priority, int dependency, String developerName) {
+    public void addTask(String description, int priority, List<Integer> dependencies, String developerName) {
         if (!userTasks.containsKey(developerName)) {
             printFormattedOutput("User not found. Please add developer " + developerName + " to the team");
             return;
@@ -63,12 +63,12 @@ class TaskScheduler {
 
         // Create and add the task to the system
         int currentTasksListSize = taskMap.size() + 1;
-        Task newTask = new Task(currentTasksListSize, description, priority, dependency, developerName);
+        Task newTask = new Task(currentTasksListSize, description, priority, dependencies, developerName);
         taskMap.put(currentTasksListSize, newTask);
         userTasks.get(developerName).add(currentTasksListSize);
         taskQueue.insert(newTask); // Insert task into the priority queue
 
-        printFormattedOutput("New Task ID: " + currentTasksListSize + " || Description: " + description + " || Developer: " + developerName + " || Priority: " + priority + " || Dependency on TaskId: " + dependency);
+        printFormattedOutput("New Task ID: " + currentTasksListSize + " || Description: " + description + " || Developer: " + developerName + " || Priority: " + priority + " || Dependency on TaskId: " + dependencies.toString());
 
     }
 
@@ -80,7 +80,7 @@ class TaskScheduler {
             return;
         }
         printFormattedOutput("Task Found");
-        printFormattedOutput("Task ID: " + task.id + " || Description: " + task.description + " || Developer: " + task.developer + " || Priority: " + task.priority + " || Dependency on TaskId: " + task.dependency);
+        printFormattedOutput("Task ID: " + task.id + " || Description: " + task.description + " || Developer: " + task.developer + " || Priority: " + task.priority + " || Dependency on TaskId: " + task.dependencies.toString());
     }
 
     // Method to show tasks assigned to a developer
@@ -99,7 +99,7 @@ class TaskScheduler {
         printFormattedOutput("Tasks for developer " + devName + ":");
         for (Integer taskId : tasks) {
             Task task = taskMap.get(taskId);
-            printFormattedOutput("Task ID: " + task.id + " || Description: " + task.description + " || Priority: " + task.priority + " || Dependency on TaskId: " + task.dependency);
+            printFormattedOutput("Task ID: " + task.id + " || Description: " + task.description + " || Priority: " + task.priority + " || Dependency on TaskId: " + task.dependencies.toString());
         }
     }
 
@@ -170,21 +170,32 @@ class TaskScheduler {
 
         Task task = taskMap.get(taskId);
         if (!areDependenciesResolved(task)) {
-            printFormattedOutput("Cannot execute task " + taskId + " due to unresolved dependencies. Resolve task " + task.dependency + " and try again.");
+            printFormattedOutput("Cannot execute task " + taskId + " due to unresolved dependencies. Resolve task " + task.dependencies.toString() + " and try again.");
             return;
         }
 
         markTaskAsCompleted(task);
     }
 
-    // Method to check if all dependencies of a task are resolved
     public boolean areDependenciesResolved(Task task) {
-        int dependencyId = task.dependency;
-        if (dependencyId == 0) return true; // No dependencies
+        List<Integer> dependencyIds = task.dependencies; // Assume dependencies is now a List<Integer>
 
-        Task dependentTask = getTaskById(dependencyId);
-        return dependentTask != null && completedTasks.get(dependentTask.developer).contains(dependencyId);
+        // If there are no dependencies, return true
+        if (dependencyIds == null || dependencyIds.isEmpty() || dependencyIds.contains(0)) {
+            return true;
+        }
+
+        // Check if all dependencies are resolved
+        for (int dependencyId : dependencyIds) {
+            Task dependentTask = getTaskById(dependencyId);
+            if (dependentTask == null || !completedTasks.get(dependentTask.developer).contains(dependencyId)) {
+                return false; // If any dependency is not resolved, return false
+            }
+        }
+
+        return true; // All dependencies are resolved
     }
+
 
     // Method to mark a task as completed
     public void markTaskAsCompleted(Task task) {

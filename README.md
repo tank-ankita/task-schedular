@@ -112,16 +112,16 @@ mvn clean test -Dtest=org.scheduler.TaskSchedulerTest.java
 ### Application Menu
 The application presents a menu with the following options:
 
-| Functioanlity| Command |  Example|
-| -------- | -------- | -------- |
-| Add Developer   | 1 DeveloperName   | 1 John    |
-| Create New Task    | 2 DeveloperName, Task Description, Priority, Dependency    | 2 John, Fix Bug, 1, 0    |
-| Execute Task by ID    | 3 TaskId    | 3 1    |
-| Execute All Tasks    | 4    | 4    |
-| Show Developer Completed Tasks    | 5 DeveloperName   | 5 John   |
-| Search Task by ID    | 6 TaskId    | 6 1    |
-| Show Tasks Assigned to Developer    | 7 DeveloperName    | 7 John    |
-| Exit the Program    | 8    | 8|
+| Functioanlity| Command                                                   | Example                   |
+| -------- |-----------------------------------------------------------|---------------------------|
+| Add Developer   | 1 DeveloperName                                           | 1 Tank                    |
+| Create New Task    | 2 DeveloperName, Task Description, Priority, Dependencies | 2 Tank, Fix Bug, 1, 0 2 3 |
+| Execute Task by ID    | 3 TaskId                                                  | 3 1                       |
+| Execute All Tasks    | 4                                                         | 4                         |
+| Show Developer Completed Tasks    | 5 DeveloperName                                           | 5 Tank                    |
+| Search Task by ID    | 6 TaskId                                                  | 6 1                       |
+| Show Tasks Assigned to Developer    | 7 DeveloperName                                           | 7 Tank                    |
+| Exit the Program    | 8                                                         | 8                         |
 
 
 ## Developer Guide

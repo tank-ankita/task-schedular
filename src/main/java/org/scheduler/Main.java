@@ -3,6 +3,8 @@ package org.scheduler;
 // Project - Task Scheduler
 // November 2024
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 // Main class to run the Task Scheduler
 public class Main {
@@ -12,18 +14,18 @@ public class Main {
 
         while (true) {
             System.out.println();
-            System.out.println("------------------------------------------------------------------------------------------------------------------");
+            System.out.println("----------------------------------------------------------------------------------------------------------------------");
             System.out.printf("%-10s %-35s %-30s%n", "Option", "Description", "Expected Input Format");
-            System.out.println("------------------------------------------------------------------------------------------------------------------");
+            System.out.println("----------------------------------------------------------------------------------------------------------------------");
             System.out.printf("%-10s %-35s %-30s%n", "1", "Add Developer", "1 DeveloperName");
-            System.out.printf("%-10s %-35s %-30s%n", "2", "Create New Task", "2 DeveloperName TaskDescription Priority Dependency");
+            System.out.printf("%-10s %-35s %-30s%n", "2", "Create New Task", "2 DeveloperName, TaskDescription, Priority, Dependency1 Dependency2...");
             System.out.printf("%-10s %-35s %-30s%n", "3", "Execute Task by ID", "3 TaskId");
             System.out.printf("%-10s %-35s %-30s%n", "4", "Execute All Tasks", "4");
             System.out.printf("%-10s %-35s %-30s%n", "5", "Show Developer Completed Tasks", "5 DeveloperName");
             System.out.printf("%-10s %-35s %-30s%n", "6", "Search Task by ID", "6 TaskId");
             System.out.printf("%-10s %-35s %-30s%n", "7", "Show Tasks Assigned to Developer", "7 DeveloperName");
             System.out.printf("%-10s %-35s %-30s%n", "8", "Exit the Program", "8");
-            System.out.println("------------------------------------------------------------------------------------------------------------------");
+            System.out.println("----------------------------------------------------------------------------------------------------------------------");
             System.out.println();
 
             String inputLine = scanner.nextLine();
@@ -40,7 +42,7 @@ public class Main {
                         break;
                     case 2:
                         // Case 2: Create New Task
-                        String[] taskParts = parameters.split(" ", 4);
+                        String[] taskParts = parameters.split(",", 4);
                         if (taskParts.length < 4) {
                             System.out.println("Invalid input for creating a task. Please try again.");
                             break;
@@ -48,9 +50,13 @@ public class Main {
                         String assignedUser = taskParts[0].trim();
                         String description = taskParts[1].trim();
                         int priority = Integer.parseInt(taskParts[2].trim());
-                        int dependency = Integer.parseInt(taskParts[3].trim());
+                        String[] dependencyParts = taskParts[3].trim().split(" ");
+                        List<Integer> dependencies = new ArrayList<>();
+                        for (String dep : dependencyParts) {
+                            dependencies.add(Integer.parseInt(dep.trim()));
+                        }
 
-                        scheduler.addTask(description, priority, dependency, assignedUser);
+                        scheduler.addTask(description, priority, dependencies, assignedUser);
                         break;
                     case 3:
                         // Case 3: Execute Task
