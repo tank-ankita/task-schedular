@@ -6,6 +6,22 @@ Before proceeding with the following commands, ensure that you have followed the
 ----------
 ## Features and How to Use Them
 
+#### The application presents a menu with the following options
+
+| Functionality                    | Command                                                   | Example                   |
+|----------------------------------|-----------------------------------------------------------|---------------------------|
+| Add Developer                    | 1 DeveloperName                                           | 1 Tank                    |
+| Create New Task                  | 2 DeveloperName, Task Description, Priority, Dependencies | 2 Tank, Fix Bug, 1, 0 2 3 |
+| Execute Task by ID               | 3 TaskId                                                  | 3 1                       |
+| Execute All Tasks                | 4                                                         | 4                         |
+| Show Developer Completed Tasks   | 5 DeveloperName                                           | 5 Tank                    |
+| Search Task by ID                | 6 TaskId                                                  | 6 1                       |
+| Show Tasks Assigned to Developer | 7 DeveloperName                                           | 7 Tank                    |
+| Show All Tasks                   | 8                                                         | 8                         |
+| Read Commands from File          | 9 TextFile.txt                                            | 9 commands.txt            |
+| Exit the Program                 | 10                                                        | 10                        |
+
+
 **1. Add Developer**\
 Purpose: To add a new developer to the team.
 
@@ -60,11 +76,25 @@ Purpose: To view all pending tasks assigned to a specific developer.
 - Example: 7 John
 - Instructions: Enter 7 followed by the developer's name. The application will list all pending tasks or inform you if the developer has no tasks assigned.
 
-**8. Exit the Program**\
-Purpose: To exit the application.
+**8. Show All Tasks**\
+Purpose: To view all tasks in a formatted and organized way, including their ID, description, developer, priority, and dependencies.
 
 - Input Format: 8
-- Instructions: Enter 8 to close the application.
+- Example: 8
+- Instructions: Enter 8 to list all tasks currently in the system. The application will display each task with its details formatted for clarity.
+
+**9. Read Commands from File**\
+Purpose: To load and execute a series of commands from a specified .txt file, making task management more efficient.
+
+- Input Format: 9 FileName.txt
+- Example: 9 commands.txt
+- Instructions: Enter 9 followed by the name of the text file (including the .txt extension). The file should contain commands in the same format as manual input, with each command on a new line. The application will read and execute each command from the file, simplifying repetitive tasks.
+
+**10. Exit the Program**\
+Purpose: To exit the application.
+
+- Input Format: 10
+- Instructions: Enter 10 to close the application.
 
 
 ----------

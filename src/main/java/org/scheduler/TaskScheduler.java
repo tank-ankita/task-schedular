@@ -35,6 +35,21 @@ class TaskScheduler {
         System.out.println("=> " + output);
     }
 
+    private void printTask(Task task) {
+        // Define the desired width for each field
+        String formattedOutput = String.format(
+                "%-10s %-45s %-10s %-15s %-20s",
+                "|Task ID: " + task.id,
+                "|Description: " + task.description,
+                "|Developer: " + task.developer,
+                "|Priority: " + task.priority,
+                "|Dependency on TaskId: " + task.dependencies.toString()
+        );
+
+        printFormattedOutput(formattedOutput);
+    }
+
+
     // Method to add a new developer
     public void addUser(String name) {
         if (developerList.containsKey(name)) {
@@ -67,9 +82,7 @@ class TaskScheduler {
         taskMap.put(currentTasksListSize, newTask);
         userTasks.get(developerName).add(currentTasksListSize);
         taskQueue.insert(newTask); // Insert task into the priority queue
-
-        printFormattedOutput("New Task ID: " + currentTasksListSize + " || Description: " + description + " || Developer: " + developerName + " || Priority: " + priority + " || Dependency on TaskId: " + dependencies.toString());
-
+        printTask(newTask);
     }
 
     // Method to search for a task by its ID and display details
@@ -80,7 +93,7 @@ class TaskScheduler {
             return;
         }
         printFormattedOutput("Task Found");
-        printFormattedOutput("Task ID: " + task.id + " || Description: " + task.description + " || Developer: " + task.developer + " || Priority: " + task.priority + " || Dependency on TaskId: " + task.dependencies.toString());
+        printTask(task);
     }
 
     // Method to show tasks assigned to a developer
@@ -99,9 +112,22 @@ class TaskScheduler {
         printFormattedOutput("Tasks for developer " + devName + ":");
         for (Integer taskId : tasks) {
             Task task = taskMap.get(taskId);
-            printFormattedOutput("Task ID: " + task.id + " || Description: " + task.description + " || Priority: " + task.priority + " || Dependency on TaskId: " + task.dependencies.toString());
+            printTask(task);
         }
     }
+
+    public void showAllTasks() {
+        if (taskMap.isEmpty()) {
+            printFormattedOutput("No tasks available.");
+            return;
+        }
+
+        printFormattedOutput("Listing all tasks:");
+        for (Task task : taskMap.values()) {
+            printTask(task);
+        }
+    }
+
 
     // Method to show completed tasks for a developer
     public void showCompletedTasks(String devName) {
@@ -192,16 +218,14 @@ class TaskScheduler {
                 return false; // If any dependency is not resolved, return false
             }
         }
-
         return true; // All dependencies are resolved
     }
-
 
     // Method to mark a task as completed
     public void markTaskAsCompleted(Task task) {
         userTasks.get(task.developer).remove(Integer.valueOf(task.id));
         completedTasks.get(task.developer).add(task.id);
-        printFormattedOutput("Task " + task.id + " executed successfully.");
+        printFormattedOutput("Task " + task.id + " with priority " +task.priority+ " and dependency "+ task.dependencies.toString()+ " executed successfully.");
     }
 
     // Method to get tasks by id

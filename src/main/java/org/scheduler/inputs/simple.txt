@@ -1,0 +1,11 @@
+1 David
+1 Tesla
+2 David, Add Modal, 3, 0
+2 David, Update Navigation Color, 2, 0
+2 David, Fix Header Alignment, 1, 0
+2 David, Optimize Image Load Time, 3, 0
+2 Tesla, Implement Search Bar, 1, 0
+2 Tesla, Update Footer Links, 5, 0
+2 Tesla, Improve Button Accessibility, 4, 0
+8
+4
