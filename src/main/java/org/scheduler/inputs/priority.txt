@@ -1,11 +1,11 @@
 1 David
 1 Tesla
 1 Matty
-2 David, Task description, 2, 2
-2 Tesla, Task description, 5, 0
-2 Matty, Task description, 1, 0
-2 David, Task description, 1, 2
-2 Tesla, Task description, 2, 1
-2 Matty, Task description, 1, 3
+2 David, Add Modal, 2, 2
+2 Tesla, Add Navigation Bar, 5, 0
+2 Matty, Add Footer, 1, 0
+2 David, Add click, 1, 2
+2 Tesla, Change icon, 2, 1
+2 Matty, Update router, 1, 3
 8
 4
